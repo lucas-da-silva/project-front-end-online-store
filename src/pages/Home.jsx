@@ -6,7 +6,7 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 class Home extends Component {
   state = {
     inputSearch: '',
-    productsSearch: false,
+    products: false,
   }
 
   handleChange = ({ target }) => {
@@ -18,11 +18,11 @@ class Home extends Component {
 
   clickCategory = async (product) => {
     const productsSearch = await getProductsFromCategoryAndQuery('', product);
-    this.setState({ productsSearch });
+    this.setState({ products: productsSearch });
   }
 
   render() {
-    const { inputSearch, productsSearch } = this.state;
+    const { inputSearch, products } = this.state;
     return (
       <section>
         <input
@@ -40,18 +40,13 @@ class Home extends Component {
         >
           Pesquisar
         </button>
-        {
-          productsSearch && productsSearch.results.length > 0
-            && <ProductsList productsSearch={ productsSearch } />
-        }
-        {
-          productsSearch && productsSearch.results.length === 0
-            && <p>Nenhum produto foi encontrado</p>
-        }
         <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        {
+          products && <ProductsList products={ products } />
+        }
       </section>
     );
   }

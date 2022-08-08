@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 class ProductsList extends Component {
   render() {
-    const { productsSearch } = this.props;
-    const { results } = productsSearch;
+    const { products } = this.props;
+    const { results } = products;
     return (
       <section>
         {
-          results.map(({ title, id }) => (
+          results.length > 0 ? (results.map(({ title, id }) => (
             <div key={ id } data-testid="product">
               <p key={ id }>{title}</p>
             </div>
-          ))
+          ))) : <p>Nenhum produto foi encontrado</p>
         }
       </section>
     );
@@ -20,7 +20,7 @@ class ProductsList extends Component {
 }
 
 ProductsList.propTypes = {
-  productsSearch: PropTypes.shape({
+  products: PropTypes.shape({
     results: PropTypes.shape(),
   }).isRequired,
 };

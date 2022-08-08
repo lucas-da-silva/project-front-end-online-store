@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ProductsList from '../components/ProductsList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   state = {
@@ -47,6 +48,7 @@ class Home extends Component {
           productsSearch && productsSearch.results.length === 0
             && <p>Nenhum produto foi encontrado</p>
         }
+        <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

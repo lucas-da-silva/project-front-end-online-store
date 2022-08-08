@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ProductsList from '../components/ProductsList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Category from './Category';
 
 class Home extends Component {
   state = {
@@ -47,6 +48,7 @@ class Home extends Component {
         {
           products && <ProductsList products={ products } />
         }
+        <Category />
       </section>
     );
   }

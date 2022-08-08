@@ -16,16 +16,12 @@ class Home extends Component {
   }
 
   clickCategory = async (product) => {
-    const productsSearch = await getProductsFromCategoryAndQuery(product);
+    const productsSearch = await getProductsFromCategoryAndQuery('', product);
     this.setState({ productsSearch });
   }
 
   render() {
     const { inputSearch, productsSearch } = this.state;
-    if (productsSearch && productsSearch.results.length > 0) {
-      console.log('maior');
-    }
-    // console.log(productsSearch);
     return (
       <section>
         <input
@@ -44,12 +40,13 @@ class Home extends Component {
           Pesquisar
         </button>
         {
-          productsSearch && productsSearch.results && <ProductsList productsSearch={ productsSearch } />
+          productsSearch && productsSearch.results.length > 0
+            && <ProductsList productsSearch={ productsSearch } />
         }
-        {/* {
+        {
           productsSearch && productsSearch.results.length === 0
             && <p>Nenhum produto foi encontrado</p>
-        } */}
+        }
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

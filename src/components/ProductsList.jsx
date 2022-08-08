@@ -5,14 +5,13 @@ class ProductsList extends Component {
   render() {
     const { productsSearch } = this.props;
     const { results } = productsSearch;
-    console.log(productsSearch);
     return (
-      <section data-testid="product">
+      <section>
         {
           results.map(({ title, id }) => (
-            // <div key={ id } data-testid="product" data-testid="product">
-            <p key={ id } data-testid="product">{title}</p>
-            // </div>
+            <div key={ id } data-testid="product">
+              <p key={ id }>{title}</p>
+            </div>
           ))
         }
       </section>

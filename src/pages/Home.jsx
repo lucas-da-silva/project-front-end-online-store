@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ProductsList from '../components/ProductsList';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import Category from './Category';
+import Category from '../components/Category';
 
 class Home extends Component {
   state = {
@@ -17,8 +17,8 @@ class Home extends Component {
     });
   }
 
-  clickCategory = async (product) => {
-    const productsSearch = await getProductsFromCategoryAndQuery('', product);
+  clickCategory = async (category, product) => {
+    const productsSearch = await getProductsFromCategoryAndQuery(category, product);
     this.setState({ products: productsSearch });
   }
 
@@ -35,7 +35,7 @@ class Home extends Component {
           placeholder="Categoria"
         />
         <button
-          onClick={ () => this.clickCategory(inputSearch) }
+          onClick={ () => this.clickCategory('', inputSearch) }
           type="button"
           data-testid="query-button"
         >
@@ -48,7 +48,7 @@ class Home extends Component {
         {
           products && <ProductsList products={ products } />
         }
-        <Category />
+        <Category clickCategory={ this.clickCategory } />
       </section>
     );
   }

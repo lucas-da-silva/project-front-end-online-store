@@ -11,8 +11,7 @@ const RATING_NUMBERS = [RATING_1, RATING_2, RATING_3, RATING_4, RATING_5];
 
 class RatingForm extends Component {
   state = {
-    // isDisabled: false,
-    valid: false,
+    invalid: false,
     emailInput: '',
     detailInput: '',
     rating: 0,
@@ -37,20 +36,9 @@ class RatingForm extends Component {
     });
   }
 
-  validationButton = () => {
-    // const { emailInput, rating } = this.state;
-    // let isDisabled = true;
-    // const regex = /\S+@\S+\.\S+/;
-
-    // if (regex.test(emailInput) && rating > 0) {
-    //   isDisabled = false;
-    // }
-
-    // this.setState({ isDisabled, invalid: !regex.test(emailInput) });
-  }
-
   addRating = () => {
     const { id } = this.props;
+
     this.setState(({ emailInput, rating, detailInput, evaluations }) => {
       const newEvaluation = {
         id,
@@ -59,24 +47,29 @@ class RatingForm extends Component {
         detailInput,
       };
 
-      const regex = /\S+@\S+\.\S+/;
-      if (regex.test(emailInput)) {
+      if (this.validationButton()) {
         const newEvaluations = [...evaluations, newEvaluation];
         localStorage.setItem(id, JSON.stringify(newEvaluations));
         return {
-          valid: false,
+          invalid: false,
           emailInput: '',
           detailInput: '',
           rating: 0,
           evaluations: newEvaluations,
         };
       }
-      this.setState({ valid: true });
+      return { invalid: true };
     });
   }
 
+  validationButton = () => {
+    const { emailInput, rating } = this.state;
+    const regex = /\S+@\S+\.\S+/;
+    return !!(regex.test(emailInput) && rating > 0);
+  }
+
   render() {
-    const { evaluations, emailInput, detailInput, valid } = this.state;
+    const { evaluations, emailInput, detailInput, invalid } = this.state;
     return (
       <section>
         <form>
@@ -115,11 +108,9 @@ class RatingForm extends Component {
           >
             Avaliar
           </button>
-          <p data-testid="error-msg">
-            {
-              valid && 'Campos inválidos'
-            }
-          </p>
+          {
+            invalid && <p data-testid="error-msg">Campos inválidos</p>
+          }
         </form>
         {
           evaluations.length > 0 && (

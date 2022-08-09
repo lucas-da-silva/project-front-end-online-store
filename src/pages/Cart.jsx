@@ -4,9 +4,9 @@ class Cart extends Component {
   render() {
     return (
       <section>
-        <p data-testid="shopping-cart-empty-message">
+        <div data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
-        </p>
+        </div>
       </section>
     );
   }

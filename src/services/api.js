@@ -22,3 +22,9 @@ export async function getProductsFromCategories(categoryId) {
 
   return fetchData(url);
 }
+
+export async function getProductsFromID(ProductId) {
+  const url = `https://api.mercadolibre.com/items/${ProductId}`;
+
+  return fetchData(url);
+}

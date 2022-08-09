@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
 class Cart extends Component {
+  state = { cart: [] };
+
+  componentDidMount() {
+    this.getCartFromLocalStorage();
+  }
+
+  getCartFromLocalStorage = () => {
+    const cart = JSON.parse(localStorage.getItem('FE_CART')) || [];
+    this.setState({ cart: [...cart] });
+  }
+  
   render() {
     return (
       <section>

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getProduct } from '../services/api';
-import { getProductsStorage } from '../services/storage';
 import { Link } from 'react-router-dom';
-
+import { getProductsStorage } from '../services/storage';
 
 class ProductsList extends Component {
   onClickAddToCart = (product) => {

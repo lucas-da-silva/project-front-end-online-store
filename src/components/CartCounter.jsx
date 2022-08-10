@@ -7,6 +7,11 @@ class CartCounter extends Component {
       totalValue: 0,
     }
 
+    componentDidMount() {
+      const { itemPrice } = this.props;
+      this.setState({ totalValue: itemPrice });
+    }
+
     changeCounterUp = () => {
       const { itemPrice } = this.props;
       const { counter } = this.state;
@@ -29,6 +34,7 @@ class CartCounter extends Component {
 
     render() {
       const { counter, totalValue } = this.state;
+      const { removeItem, itemID } = this.props;
       return (
         <section>
           <div data-testid="shopping-cart-empty-message">
@@ -40,21 +46,25 @@ class CartCounter extends Component {
               +1
 
             </button>
-            <input
-              min="1"
-              type="number"
-              value={ counter }
-              readOnly
-            />
+            <span data-testid="shopping-cart-product-quantity">
+              {` ${counter} `}
+            </span>
             <button
               data-testid="product-decrease-quantity"
               type="button"
               onClick={ this.changeCounterDown }
             >
               -1
-
             </button>
-            <div>{`Valor Total em R$ ${totalValue}`}</div>
+            <div>{`Valor Total R$ ${totalValue}`}</div>
+            <button
+              id={ itemID }
+              type="button"
+              data-testid="remove-product"
+              onClick={ removeItem }
+            >
+              Remover Produto
+            </button>
           </div>
         </section>
       );
@@ -62,5 +72,7 @@ class CartCounter extends Component {
 }
 CartCounter.propTypes = {
   itemPrice: proptypes.number.isRequired,
+  removeItem: proptypes.func.isRequired,
+  itemID: proptypes.string.isRequired,
 };
 export default CartCounter;

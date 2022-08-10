@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getProductsStorage } from '../services/storage';
+import CartCounter from '../components/CartCounter';
 
 class Cart extends Component {
   state = { products: [] };
@@ -9,10 +10,14 @@ class Cart extends Component {
     this.setState({ products });
   }
 
-  // getCartFromLocalStorage = () => {
-  //   const cart = JSON.parse(localStorage.getItem('FE_CART')) || [];
-  //   this.setState({ cart: [...cart] });
-  // }
+  removeItem = ({ target }) => {
+    const { id } = target;
+    const { products } = this.state;
+    const newProductsList = products.filter((item) => item.id !== id);
+    this.setState({ products: newProductsList });
+    localStorage.clear();
+    localStorage.setItem('products', JSON.stringify(newProductsList));
+  }
 
   render() {
     const { products } = this.state;
@@ -24,15 +29,19 @@ class Cart extends Component {
               Seu carrinho está vazio
             </p>
           ) : (
-            products.map(({ id, title, quantity }) => (
-              <div key={ id }>
+            products.map(({ id, title, price }) => (
+              <div id={ id } key={ id }>
                 <span data-testid="shopping-cart-product-name">
                   {title}
                 </span>
+                <span>{ ` / Valor R$ ${price}` }</span>
                 <br />
-                <span data-testid="shopping-cart-product-quantity">
-                  {quantity}
-                </span>
+                <CartCounter
+                  itemPrice={ price }
+                  removeItem={ this.removeItem }
+                  itemID={ id }
+                />
+                <hr />
               </div>
             ))
           )

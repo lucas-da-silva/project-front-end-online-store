@@ -8,7 +8,6 @@ class ProductsList extends Component {
     const allItems = getProductsStorage();
     allItems.push({
       ...product,
-      quantity: 1,
     });
 
     localStorage.setItem('products', JSON.stringify(allItems));

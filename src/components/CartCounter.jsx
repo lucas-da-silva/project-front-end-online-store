@@ -63,7 +63,7 @@ class CartCounter extends Component {
               data-testid="remove-product"
               onClick={ removeItem }
             >
-              Remover item
+              Remover Produto
             </button>
           </div>
         </section>

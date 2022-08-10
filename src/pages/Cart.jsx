@@ -3,6 +3,9 @@ import { getProductsStorage } from '../services/storage';
 
 class Cart extends Component {
   state = { products: [] };
+  state = {
+    products: [],
+  }
 
   componentDidMount() {
     const products = getProductsStorage();

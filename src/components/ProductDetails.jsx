@@ -76,5 +76,4 @@ ProductDetails.propTypes = {
       }),
   }).isRequired,
 };
-
 export default ProductDetails;

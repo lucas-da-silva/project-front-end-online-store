@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromID } from '../services/api';
+import RatingForm from '../components/RatingForm';
 import { getProductsStorage } from '../services/storage';
 
 class ProductDetails extends Component {
@@ -43,6 +44,7 @@ class ProductDetails extends Component {
 
   render() {
     const { productName, productImage, productPrice, thisProduct } = this.state;
+    const { match: { params: { id } } } = this.props;
     return (
       <div>
         <img
@@ -62,7 +64,7 @@ class ProductDetails extends Component {
           Adicionar o Carrinho
 
         </button>
-
+        <RatingForm id={ id } />
       </div>
     );
   }

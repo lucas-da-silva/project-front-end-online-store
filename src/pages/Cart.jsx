@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsStorage } from '../services/storage';
 import CartCounter from '../components/CartCounter';
 
@@ -45,6 +46,12 @@ class Cart extends Component {
             ))
           )
         }
+        <Link
+          to="/checkoutProducts"
+          data-testid="checkout-products"
+        >
+          Finalizar compras
+        </Link>
       </section>
     );
   }

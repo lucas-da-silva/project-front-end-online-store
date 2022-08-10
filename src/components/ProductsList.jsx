@@ -4,20 +4,31 @@ import { Link } from 'react-router-dom';
 import { getProductsStorage } from '../services/storage';
 
 class ProductsList extends Component {
+  state = {
+    myCart: 0,
+  }
+
+  componentDidMount() {
+    const allItems = getProductsStorage();
+    this.setState({ myCart: allItems.length });
+  }
+
   onClickAddToCart = (product) => {
     const allItems = getProductsStorage();
     allItems.push({
       ...product,
     });
-
+    this.setState({ myCart: allItems.length });
     localStorage.setItem('products', JSON.stringify(allItems));
   };
 
   render() {
     const { products } = this.props;
+    const { myCart } = this.state;
     const { results } = products;
     return (
       <section>
+        <span data-testid="shopping-cart-size">{` ${myCart} `}</span>
         {
           results.length > 0 ? (results.map(({ title, id }, index) => (
             <div key={ id } data-testid="product">

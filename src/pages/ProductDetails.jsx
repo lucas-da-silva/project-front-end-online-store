@@ -11,10 +11,13 @@ class ProductDetails extends Component {
     productImage: '',
     productPrice: 0,
     thisProduct: '',
+    myCart: 0,
   };
 
   async componentDidMount() {
     this.getProduct();
+    const allItems = getProductsStorage();
+    this.setState({ myCart: allItems.length });
   }
 
   getProduct = async () => {
@@ -37,12 +40,12 @@ class ProductDetails extends Component {
     allItems.push({
       ...product,
     });
-
+    this.setState({ myCart: allItems.length });
     localStorage.setItem('products', JSON.stringify(allItems));
   };
 
   render() {
-    const { productName, productImage, productPrice, thisProduct } = this.state;
+    const { productName, productImage, productPrice, thisProduct, myCart } = this.state;
     const { match: { params: { id } } } = this.props;
     return (
       <div>
@@ -54,6 +57,7 @@ class ProductDetails extends Component {
         <br />
         <h2 data-testid="product-detail-name">{productName}</h2>
         <span data-testid="product-detail-price">{productPrice}</span>
+        <span data-testid="shopping-cart-size">{` ${myCart} `}</span>
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <button
           type="button"

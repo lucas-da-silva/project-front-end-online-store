@@ -15,7 +15,6 @@ class Cart extends Component {
     const { products } = this.state;
     const newProductsList = products.filter((item) => item.id !== id);
     this.setState({ products: newProductsList });
-    localStorage.clear();
     localStorage.setItem('products', JSON.stringify(newProductsList));
   }
 

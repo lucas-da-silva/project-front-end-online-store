@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import { getProductsStorage } from '../services/storage';
 
 class Cart extends Component {
-  state = {
-    products: [],
-  }
+  state = { products: [] };
 
   componentDidMount() {
     const products = getProductsStorage();
     this.setState({ products });
   }
+
+  // getCartFromLocalStorage = () => {
+  //   const cart = JSON.parse(localStorage.getItem('FE_CART')) || [];
+  //   this.setState({ cart: [...cart] });
+  // }
 
   render() {
     const { products } = this.state;

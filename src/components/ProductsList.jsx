@@ -28,7 +28,10 @@ class ProductsList extends Component {
 
 ProductsList.propTypes = {
   products: PropTypes.shape({
-    results: PropTypes.shape(),
+    results: PropTypes.arrayOf({
+      title: PropTypes.string,
+      id: PropTypes.number,
+    }),
   }).isRequired,
 };
 

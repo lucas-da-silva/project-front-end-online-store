@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromID } from '../services/api';
-import RatingForm from './RatingForm';
+import RatingForm from '../components/RatingForm';
 
 class ProductDetails extends Component {
     state = {

@@ -29,11 +29,7 @@ class RatingForm extends Component {
   handleInputChange = ({ target }) => {
     const { name, value } = target;
 
-    this.setState({
-      [name]: value,
-    }, () => {
-      this.validationButton();
-    });
+    this.setState({ [name]: value });
   }
 
   addRating = () => {
@@ -47,7 +43,7 @@ class RatingForm extends Component {
         detailInput,
       };
 
-      if (this.validationButton()) {
+      if (this.validationButton(emailInput, rating)) {
         const newEvaluations = [...evaluations, newEvaluation];
         localStorage.setItem(id, JSON.stringify(newEvaluations));
         return {
@@ -62,10 +58,9 @@ class RatingForm extends Component {
     });
   }
 
-  validationButton = () => {
-    const { emailInput, rating } = this.state;
+  validationButton = (email, rating) => {
     const regex = /\S+@\S+\.\S+/;
-    return !!(regex.test(emailInput) && rating > 0);
+    return !!(regex.test(email) && rating > 0);
   }
 
   render() {

@@ -12,6 +12,7 @@ class ProductDetails extends Component {
     productPrice: 0,
     thisProduct: '',
     myCart: 0,
+    shipping: false,
   };
 
   async componentDidMount() {
@@ -26,12 +27,13 @@ class ProductDetails extends Component {
     const { id } = params;
     const thisProduct = await getProductsFromID(id);
     console.log(thisProduct);
-    const { thumbnail, price, title } = thisProduct;
+    const { thumbnail, price, title, shipping } = thisProduct;
     this.setState({
       productName: title,
       productImage: thumbnail,
       productPrice: price,
       thisProduct,
+      shipping,
     });
   }
 
@@ -45,7 +47,8 @@ class ProductDetails extends Component {
   };
 
   render() {
-    const { productName, productImage, productPrice, thisProduct, myCart } = this.state;
+    const { productName, productImage, productPrice,
+      thisProduct, myCart, shipping } = this.state;
     const { match: { params: { id } } } = this.props;
     return (
       <div>
@@ -58,7 +61,12 @@ class ProductDetails extends Component {
         <h2 data-testid="product-detail-name">{productName}</h2>
         <span data-testid="product-detail-price">{productPrice}</span>
         <span data-testid="shopping-cart-size">{` ${myCart} `}</span>
+        <br />
+        { shipping.free_shipping && (
+          <span data-testid="free-shipping">Frete Gratis</span>) }
+        <br />
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <br />
         <button
           type="button"
           data-testid="product-detail-add-to-cart"

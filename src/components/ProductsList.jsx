@@ -30,9 +30,13 @@ class ProductsList extends Component {
       <section>
         <span data-testid="shopping-cart-size">{` ${myCart} `}</span>
         {
-          results.length > 0 ? (results.map(({ title, id }, index) => (
+          results.length > 0 ? (results.map(({ title, id, shipping }, index) => (
             <div key={ id } data-testid="product">
               <p key={ id }>{title}</p>
+              <br />
+              { shipping.free_shipping && (
+                <span data-testid="free-shipping">Frete Gratis</span>) }
+              <br />
               <button
                 data-testid="product-add-to-cart"
                 type="button"
@@ -46,6 +50,7 @@ class ProductsList extends Component {
               >
                 Produto
               </Link>
+              <hr />
             </div>
           ))) : <p>Nenhum produto foi encontrado</p>
         }
